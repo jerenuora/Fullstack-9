@@ -1,4 +1,4 @@
-const calculateBmi = (height: number, weight: number) => {
+const calculateBmi = (height: number, weight: number): string => {
     const BMI = weight/((height/100)**2) 
     if (BMI < 16.0) {
         return "Underweight (Severe thinness)"
