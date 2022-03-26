@@ -20,7 +20,7 @@ const calculateExercises = ( arr: Array<number>, target: number ): Result => {
         return 1;
     }
     
-    const ratingExplained = () => {
+    const ratingExplained = (): string => {
         switch (rating()) {
             case (3):
                 return "good";
@@ -30,7 +30,7 @@ const calculateExercises = ( arr: Array<number>, target: number ): Result => {
                 return "not good";
         };
     };
-    
+
     return {
         periodLength: arr.length,
         trainingDays: arr.filter((number) => number !== 0).length,
