@@ -18,7 +18,7 @@ const calculateExercises = ( arr: Array<number>, target: number ): Result => {
             return 2;
         };
         return 1;
-    }
+    };
     
     const ratingExplained = (): string => {
         switch (rating()) {
