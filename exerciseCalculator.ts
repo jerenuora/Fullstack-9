@@ -7,6 +7,30 @@ interface Result {
   target: number,
   average: number
   };
+interface InputVals {
+    arrInput: Array<number>;
+    targetInput: number;
+}
+const parseArgs = (args: Array<string>): InputVals => {
+    const numberOfArgs = args.length;
+    let arr = [];
+    let target = 0;
+    for (let i = 2; i < numberOfArgs; i++) {
+        if (!isNaN(Number(args[i]))) {
+            if (i === 2) {
+                target = Number(args[i]);
+            } else {
+                arr.push(Number(args[i]));
+            }
+        } else {
+            throw new Error('Provided values were not numbers!');
+        };
+    };
+    return {
+        arrInput: arr,
+        targetInput: target
+    };
+  };
   
 const calculateExercises = ( arr: Array<number>, target: number ): Result => {
     const avg = arr.reduce((number, sum) => number + sum, 0)/arr.length;
@@ -42,5 +66,14 @@ const calculateExercises = ( arr: Array<number>, target: number ): Result => {
         };
 };
 
-
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1],2));
+try {
+    const {arrInput, targetInput} = parseArgs(process.argv);
+    console.log(arrInput, targetInput);
+    const outputs = calculateExercises(arrInput, targetInput);
+    console.log(outputs);
+} catch (error: unknown) {
+    if (error instanceof Error) {
+        console.log('Error' + error.message)
+      }
+    console.log('Something went wrong')
+};
