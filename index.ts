@@ -19,7 +19,7 @@ app.get('/bmi', (req, res) => {
         res.send({
             error:'malformatted numbers'
         });
-    };
+    }
   });
   
   

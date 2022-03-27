@@ -6,14 +6,14 @@ interface Result {
   ratingDescription: string,
   target: number,
   average: number
-  };
+  }
 interface InputVals {
     arrInput: Array<number>;
     targetInput: number;
 }
 const parseArgs = (args: Array<string>): InputVals => {
     const numberOfArgs = args.length;
-    let arr = [];
+    const arr = [];
     let target = 0;
     for (let i = 2; i < numberOfArgs; i++) {
         if (!isNaN(Number(args[i]))) {
@@ -24,8 +24,8 @@ const parseArgs = (args: Array<string>): InputVals => {
             }
         } else {
             throw new Error('Provided values were not numbers!');
-        };
-    };
+        }
+    }
     return {
         arrInput: arr,
         targetInput: target
@@ -40,7 +40,7 @@ const calculateExercises = ( arr: Array<number>, target: number ): Result => {
             return 3;
         } else if (avg > target-1) {
             return 2;
-        };
+        }
         return 1;
     };
     
@@ -52,7 +52,9 @@ const calculateExercises = ( arr: Array<number>, target: number ): Result => {
                 return "ok";
             case (1):
                 return "not good";
-        };
+            default:
+                return "";
+        }
     };
 
     return {
@@ -73,7 +75,7 @@ try {
     console.log(outputs);
 } catch (error: unknown) {
     if (error instanceof Error) {
-        console.log('Error' + error.message)
+        console.log('Error' + error.message);
       }
-    console.log('Something went wrong')
-};
+    console.log('Something went wrong');
+}

@@ -11,7 +11,7 @@ const parseInputs = (args: Array<string>): inputNumbers => {
         };
       } else {
         throw new Error('Provided values were not numbers!');
-      };
+      }
     };
     
 export const calculateBmi = (height: number, weight: number): string => {
@@ -32,7 +32,7 @@ export const calculateBmi = (height: number, weight: number): string => {
         return "Obese (Class II) ";
     } else {
         return "Obese (Class III) ";
-    };
+    }
 };
 
 try {
@@ -40,7 +40,7 @@ try {
     console.log(calculateBmi(height, weight));
 } catch (error: unknown) {
     if (error instanceof Error) {
-        console.log('Error' + error.message)
+        console.log('Error' + error.message);
       }
-    console.log('Something went wrong')
-};
+    console.log('Something went wrong');
+}
