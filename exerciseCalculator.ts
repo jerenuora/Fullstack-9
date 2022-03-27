@@ -32,7 +32,7 @@ const parseArgs = (args: Array<string>): InputVals => {
     };
   };
   
-const calculateExercises = ( arr: Array<number>, target: number ): Result => {
+export const calculateExercises = ( arr: Array<number>, target: number ): Result => {
     const avg = arr.reduce((number, sum) => number + sum, 0)/arr.length;
 
     const rating = (): number => {
