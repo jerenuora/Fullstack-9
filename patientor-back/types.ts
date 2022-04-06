@@ -13,3 +13,7 @@ export interface Patient {
     occupation: string
 
 }
+
+export type SecurePatient = Omit<Patient, 'ssn'>[];
+
+export type NewPatient = Omit<Patient, 'id'>;

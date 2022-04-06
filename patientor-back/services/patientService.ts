@@ -1,10 +1,8 @@
-import patientData from '../data/patients.json';
+import patients from '../data/patients';
+import { Patient, SecurePatient, NewPatient } from '../types';
+import { v1 as uuid } from 'uuid';
 
-import { Patient } from '../types';
-
-const patients: Array<Patient> = patientData;
-
-const getPatients = (): Omit<Patient, 'ssn'>[] => {
+const getPatients = (): SecurePatient => {
     return patients.map(({ id, name, dateOfBirth, gender, occupation }) => ({
         id, 
         name,
@@ -14,6 +12,17 @@ const getPatients = (): Omit<Patient, 'ssn'>[] => {
     }));
 };
 
+const addPatient = ( patientEntry: NewPatient ): Patient => {
+    const patientToBeAdded = {
+        id: uuid(),
+        ...patientEntry
+    };
+
+    patients.push(patientToBeAdded);
+    return patientToBeAdded;
+};
+
 export default {
-    getPatients
+    getPatients,
+    addPatient
 };
