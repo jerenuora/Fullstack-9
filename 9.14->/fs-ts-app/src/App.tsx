@@ -2,7 +2,6 @@ const assertNever = (value: never): never => {
   throw new Error(
     `Unhandled discriminated union member: ${JSON.stringify(value)}`
   );
-  
 };
 
 interface CoursePartBase {
@@ -25,8 +24,12 @@ interface CourseSubmissionPart extends CourseDescriptionPart {
   type: "submission";
   exerciseSubmissionLink: string;
 }
+interface CourseSpecialPart extends CourseDescriptionPart {
+  type: "special";
+  requirements: Array<string>;
+}
 
-type CoursePart = CourseNormalPart | CourseProjectPart | CourseSubmissionPart;
+type CoursePart = CourseNormalPart | CourseProjectPart | CourseSubmissionPart | CourseSpecialPart;
 
 const Header = ({ name }: { name: string }) => {
   return  <h1>{name}</h1>
@@ -50,7 +53,7 @@ const Part = (  {part}: {part: CoursePart} ) => {
             <i>{part.description}</i>
           </p>
         </div>
-      )
+      );
       case "groupProject":
         return (
           <div key={part.name}>
@@ -62,7 +65,7 @@ const Part = (  {part}: {part: CoursePart} ) => {
             project exercises count {part.groupProjectCount}
           </p>
         </div>
-      )
+      );
         case "submission":
           return (
             <div key={part.name}>
@@ -78,23 +81,35 @@ const Part = (  {part}: {part: CoursePart} ) => {
               </a>
             </p>
           </div>
-        )
-      
+        );
+        case "special":
+          return (
+            <div key={part.name}>
+            <p>
+              <b>
+                {part.name} {part.exerciseCount}
+              </b>
+              <br />
+              <i>{part.description}</i>
+              <br />
+              required skills: {part.requirements.map(req => <li key={req}>{req}</li>)}
+              
+            </p>
+          </div>
+        );
     default:
-      return assertNever(part)
+      return assertNever(part);
 }};
 
 const Content = ( { courseParts }: Parts ) => {
-  console.log(courseParts)
   return ( 
   <>
     {courseParts.map(part => 
         <div key={part.name}>
         <Part part={part} />
       </div>
-      
-  )}
-  </>)
+      )};
+  </>);
 };
 
 const Total = ( { courseParts }: Parts ) => {
@@ -106,7 +121,7 @@ const Total = ( { courseParts }: Parts ) => {
       </p>
 
     </div>
-  )
+  );
 };
 const App = () => {
   const courseName = "Half Stack application development";
@@ -135,7 +150,15 @@ const App = () => {
       description: "Confusing description",
       exerciseSubmissionLink: "https://fake-exercise-submit.made-up-url.dev",
       type: "submission"
+    },
+    {
+      name: "Backend development",
+      exerciseCount: 21,
+      description: "Typing the backend",
+      requirements: ["nodejs", "jest"],
+      type: "special"
     }
+    
   ];
   
   return (
