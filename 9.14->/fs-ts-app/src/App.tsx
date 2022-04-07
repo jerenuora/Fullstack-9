@@ -1,4 +1,10 @@
-// new types
+const assertNever = (value: never): never => {
+  throw new Error(
+    `Unhandled discriminated union member: ${JSON.stringify(value)}`
+  );
+  
+};
+
 interface CoursePartBase {
   name: string;
   exerciseCount: number;
@@ -28,23 +34,69 @@ const Header = ({ name }: { name: string }) => {
 };
 
 interface Parts {
-  courseParts: {
-    name: string;
-    exerciseCount: number;
-  }[];
+  courseParts: CoursePart[];
 }
 
+const Part = (  {part}: {part: CoursePart} ) => {
+  switch (part.type) {
+    case "normal":
+      return (
+        <div key={part.name}>
+          <p>
+            <b>
+              {part.name} {part.exerciseCount}
+            </b>
+            <br />
+            <i>{part.description}</i>
+          </p>
+        </div>
+      )
+      case "groupProject":
+        return (
+          <div key={part.name}>
+          <p>
+            <b>
+              {part.name} {part.exerciseCount}
+            </b>
+            <br />
+            project exercises count {part.groupProjectCount}
+          </p>
+        </div>
+      )
+        case "submission":
+          return (
+            <div key={part.name}>
+            <p>
+              <b>
+                {part.name} {part.exerciseCount}
+              </b>
+              <br />
+              <i>{part.description}</i>
+              <br />
+              <a href={part.exerciseSubmissionLink}>
+                {part.exerciseSubmissionLink}
+              </a>
+            </p>
+          </div>
+        )
+      
+    default:
+      return assertNever(part)
+}};
+
 const Content = ( { courseParts }: Parts ) => {
+  console.log(courseParts)
   return ( 
   <>
-  {courseParts.map(part => 
-    <div key={part.name}>
-      <p>
-      {part.name} {part.exerciseCount}
-      </p>
-    </div>)}
-  </>);
+    {courseParts.map(part => 
+        <div key={part.name}>
+        <Part part={part} />
+      </div>
+      
+  )}
+  </>)
 };
+
 const Total = ( { courseParts }: Parts ) => {
   return (
     <div>
