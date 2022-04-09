@@ -1,4 +1,4 @@
-import { NewPatient, Gender } from "./types";
+import { NewPatient, Gender, Entry } from "./types";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isGender = (param: any): param is Gender => {
@@ -49,15 +49,27 @@ const parseName = (name: unknown): string => {
     return name;
   };
 
-type Fields = { name: unknown, dateOfBirth: unknown, ssn: unknown, gender: unknown, occupation: unknown };
+const parseEntries = (entry: unknown): Entry[] => {
+  if (!entry || !isEntry(entry)) {
+    throw new Error('Incorrect or missing name');
+  }
+  return entry;
+};
 
-const toNewPatient = ({name, dateOfBirth, ssn, gender, occupation}: Fields): NewPatient => {
+const isEntry = (param: unknown): param is Entry[] => {
+  console.log(param)
+  return true;
+} 
+type Fields = { name: unknown, dateOfBirth: unknown, ssn: unknown, gender: unknown, occupation: unknown, entries: unknown };
+
+const toNewPatient = ({name, dateOfBirth, ssn, gender, occupation, entries}: Fields): NewPatient => {
     const newPatient: NewPatient = {
         name: parseName(name),
         dateOfBirth: parseDate(dateOfBirth),
         ssn: parseSsn(ssn),
         gender: parseGender(gender),
-        occupation: parseOccupation(occupation)
+        occupation: parseOccupation(occupation),
+        entries: parseEntries(entries)
     };
     return newPatient;
 };
