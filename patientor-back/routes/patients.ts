@@ -16,7 +16,7 @@ router.get('/:id', (req, res) => {
 router.post('/',(req, res) => {
   try {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    const patientToAdd = toNewPatient(req.body);
+    const patientToAdd = toNewPatient({...req.body, entries: []});
     const addedPatient = patientService.addPatient(patientToAdd);
     res.json(addedPatient);
   } catch (error: unknown) {
