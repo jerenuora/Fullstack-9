@@ -9,7 +9,7 @@ import { apiBaseUrl } from "../constants";
 const IndividualPatientPage = () => {
     const [{ patients }, dispatch] = useStateValue();
     const { id } = useParams<{ id: string }>();
-    console.log(patients);
+
     useEffect(() => {
 
         void axios.get<void>(`${apiBaseUrl}/ping`);
@@ -20,7 +20,6 @@ const IndividualPatientPage = () => {
             const { data: patientFromApi } = await axios.get<Patient>(
             `${apiBaseUrl}/patients/${id}`
             );
-            console.log(patientFromApi);
             dispatch({ type: "UPDATE_PATIENT", payload: {...patientFromApi } });
           } catch (e) {
             console.error(e);
@@ -29,7 +28,6 @@ const IndividualPatientPage = () => {
         };
         void fetchPatient();
       }, []);
-    console.log(patients);
 
     if (id && patients && Object.keys(patients).length !== 0){
         const patientToShow = patients[id];
