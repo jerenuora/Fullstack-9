@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Box, Table, Button, TableHead, Typography } from "@material-ui/core";
+import { Box, Table, Button, TableHead, Typography, Link } from "@material-ui/core";
 
 import { PatientFormValues } from "../AddPatientModal/AddPatientForm";
 import AddPatientModal from "../AddPatientModal";
@@ -61,11 +61,11 @@ const PatientListPage = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {Object.values(patients).map((patient: Patient) => (
-            <TableRow key={patient.id}>
-              <TableCell>{patient.name}</TableCell>
-              <TableCell>{patient.gender}</TableCell>
-              <TableCell>{patient.occupation}</TableCell>
+          {Object.values(patients).map((patient?: Patient) => (
+            <TableRow key={patient?.id}>
+              <TableCell>{<Link href={`/patient/${String(patient?.id)}`}>{patient?.name}</Link>}</TableCell>
+              <TableCell>{patient?.gender}</TableCell>
+              <TableCell>{patient?.occupation}</TableCell>
               <TableCell>
                 <HealthRatingBar showText={false} rating={1} />
               </TableCell>
