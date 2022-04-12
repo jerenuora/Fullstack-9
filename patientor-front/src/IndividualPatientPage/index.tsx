@@ -43,6 +43,21 @@ const IndividualPatientPage = () => {
                 <br />
                 occupation: {patientToShow?.occupation}
                 </p>
+                <h3>Entries</h3>
+                
+                {patientToShow?.entries.map(entry => 
+                  <i key={entry.id}>
+                    {entry.date} {entry.description}
+                    <ul>
+                    {entry.diagnosisCodes?.map(
+                      code => 
+                      <li key={code}>{code}</li>
+                      )}
+                      </ul>
+                      </i>
+                      )
+                      }
+                
             </div>
             );
     }
