@@ -7,9 +7,9 @@ import { Patient } from "../types";
 import { apiBaseUrl } from "../constants";
 
 const IndividualPatientPage = () => {
-    const [{ patients }, dispatch] = useStateValue();
+    const [{ patients, diagnoses }, dispatch] = useStateValue();
     const { id } = useParams<{ id: string }>();
-
+    
     useEffect(() => {
 
         void axios.get<void>(`${apiBaseUrl}/ping`);
@@ -46,15 +46,15 @@ const IndividualPatientPage = () => {
                 <h3>Entries</h3>
                 
                 {patientToShow?.entries.map(entry => 
-                  <i key={entry.id}>
-                    {entry.date} {entry.description}
+                  <div key={entry.id}>
+                    {entry.date} <i>{entry.description}</i>
                     <ul>
                     {entry.diagnosisCodes?.map(
                       code => 
-                      <li key={code}>{code}</li>
+                      <li key={code}>{code} {diagnoses[code]?.name}</li>
                       )}
                       </ul>
-                      </i>
+                      </div>
                       )
                       }
                 
