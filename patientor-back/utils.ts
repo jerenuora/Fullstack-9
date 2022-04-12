@@ -51,12 +51,12 @@ const parseName = (name: unknown): string => {
 
 const parseEntries = (entry: unknown): Entry[] => {
   if (!entry || !isEntry(entry)) {
-    throw new Error('Incorrect or missing name');
+    throw new Error('Incorrect or missing entry ');
   }
   return entry;
 };
 
-const isEntry = (param: unknown): param is Entry[] => {
+const isEntry = (param: any): param is Entry[] => {
   console.log(param)
   return true;
 } 
