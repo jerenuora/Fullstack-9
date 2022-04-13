@@ -116,13 +116,13 @@ const OccupationalEntryDetails = ({
   entry: OccupationalHealthcareEntry;
 }) => {
   const [{ diagnoses }] = useStateValue();
-  console.log(entry.sickLeave);
   return (
+    <div>
     <Card variant="outlined">
       <CardContent>
         <div key={entry.id}>
           <Typography variant="h5" component="div">
-            {entry.date} <WorkIcon /> {entry}
+            {entry.date} <WorkIcon /> 
           </Typography>
           <i>{entry.description}</i>
           <ul>
@@ -146,6 +146,7 @@ const OccupationalEntryDetails = ({
         Doctor: {entry.specialist}
       </CardContent>
     </Card>
+    </div>
   );
 };
 const HealthCheckEntryDetails = ({ entry }: { entry: HealthCheckEntry }) => {
