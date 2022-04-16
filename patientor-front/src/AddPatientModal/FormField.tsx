@@ -44,6 +44,35 @@ export const SelectField = ({ name, label, options }: SelectFieldProps) => (
     </Field>
   </>
 );
+export type HealthOption = {
+  value: number;
+  label: string;
+};
+
+type SelectHealthFieldProps = {
+  name: string;
+  label: string;
+  options: HealthOption[];
+};
+
+export const SelectFieldHealth = ({ name, label, options }: SelectHealthFieldProps) => (
+  <>
+    <InputLabel>{label}</InputLabel>
+    <Field
+      fullWidth
+      style={{ marginBottom: "0.5em" }}
+      label={label}
+      component={FormikSelect}
+      name={name}
+    >
+      {options.map((option) => (
+        <MenuItem key={option.value} value={option.value}>
+          {option.label || option.value}
+        </MenuItem>
+      ))}
+    </Field>
+  </>
+);
 
 interface TextProps extends FieldProps {
   label: string;
@@ -74,7 +103,7 @@ interface NumberProps extends FieldProps {
 }
 
 export const NumberField = ({ field, label, min, max }: NumberProps) => {
-  const [value, setValue] = useState<number>();
+  const [value, setValue] = useState<number>(0);
 
   return (
     <div style={{ marginBottom: "1em" }}>
