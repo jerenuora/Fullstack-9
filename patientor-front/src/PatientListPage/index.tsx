@@ -44,8 +44,10 @@ const PatientListPage = () => {
       if (axios.isAxiosError(e)) {
         console.error(e?.response?.data || 'Unrecognized axios error');
         setError(
-          String(e?.response?.data?.error) || 'Unrecognized axios error'
+          String(e?.response?.data) || 'Unrecognized axios error'
         );
+        console.log(e?.response?.data);
+
       } else {
         console.error('Unknown error', e);
         setError('Unknown error');
